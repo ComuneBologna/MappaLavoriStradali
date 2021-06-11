@@ -1,0 +1,8 @@
+<mat-form-field   floatLabel="always" class="w-100-p">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [id]="id" [(ngModel)]="value" placeholder="{{label}}" [disabled]="disabled" *ngIf="rows==1"/>
+    <textarea matInput [id]="id" [(ngModel)]="value" placeholder="{{label}}" [disabled]="disabled" *ngIf="rows!=1" [attr.rows]="rows"></textarea>
+</mat-form-field>
+<mat-error *ngIf="!valid">
+        {{errorMessage}}
+</mat-error>

@@ -1,0 +1,38 @@
+@import "src/@fuse/scss/fuse";
+
+
+toolbar {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    z-index: 4;
+
+    &.below {
+        z-index: 2;
+    }
+
+    .mat-toolbar {
+        position: relative;
+        background: inherit !important;
+        color: inherit !important;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        .logo-icon {
+            width: 38px;
+        }
+    }
+
+    .avatar.initials{
+        background-color: #1E2129 !important;
+        color:#fff;
+        text-transform: uppercase;
+    }
+
+    .username{
+        font-size: 14px;
+    }
+}

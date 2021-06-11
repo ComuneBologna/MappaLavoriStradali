@@ -1,0 +1,16 @@
+<mat-form-field  class="w-100-p">
+    <mat-select placeholder="{{label}}" [(ngModel)]="value" [id]="id" [disabled]="disabled" *ngIf="!multiple">
+        <mat-option value="" *ngIf="nullLabel">{{nullLabel}}</mat-option>
+        <mat-option *ngFor="let item of items" [value]="item[itemKey]">
+            {{item[itemLabel]}}
+        </mat-option>
+    </mat-select>    
+
+    <mat-select placeholder="{{label}}" [(ngModel)]="value" [id]="id" [disabled]="disabled" multiple *ngIf="multiple">
+        <mat-option value="" *ngIf="nullLabel">{{nullLabel}}</mat-option>
+        <mat-option *ngFor="let item of items" [value]="item[itemKey]">
+            {{item[itemLabel]}}
+        </mat-option>
+    </mat-select>    
+</mat-form-field>
+<mat-error *ngIf="!valid">{{errorMessage}}</mat-error>

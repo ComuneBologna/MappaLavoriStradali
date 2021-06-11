@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<mat-dialog-content>
+    <p>Confermi l'eliminazione dell'elemento selezionato</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()"><span>Annulla</span></button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial><span>Conferma</span></button>
+</mat-dialog-actions>

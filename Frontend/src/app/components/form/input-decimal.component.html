@@ -1,0 +1,4 @@
+<mat-form-field>
+    <input matInput [id]="id" [(ngModel)]="value" placeholder="localizedLabel" [disabled]="disabled" decimal/>
+</mat-form-field>
+<mat-error *ngIf="!valid">{{errorMessage}}</mat-error>

@@ -1,0 +1,212 @@
+.global-container {
+	position: relative;
+}
+table {
+	width: 300px;
+}
+
+.mat-form-field {
+	font-size: 14px;
+	width: 100%;
+}
+
+.layer-container {
+	margin-top: 10px;
+  	overflow: auto;
+	background-color: rgba(255, 255, 255, 0.7);
+
+	z-index: 1000;
+    width: 300px;
+    position: absolute;
+    max-height: 200px;
+    right: 55px;
+}
+.layer-buttons{
+    z-index: 1000;
+    position: absolute;
+	top: 0px;
+	right: 0px;
+}
+.layer-buttons button{
+    border-radius: 5px;
+    /* width: 100px; */
+    padding: 0;
+    color: white;
+    font-size: 0.988em;
+    font-weight: bold;
+    /* height: 1.375em; */
+    background-color: rgba(0, 60, 136, 0.5);
+    /* border: none; */
+    /* margin-left: .625em;  */
+	margin: 10px 10px 0px 0px;
+}
+
+.edit-layer-buttons{
+    font-size: 15px;
+ 
+}
+.add-new-layer-button{
+    border-radius: 5px;
+    /* width: 100px; */
+    padding: 0;
+    color: white;
+    font-size: 0.988em;
+    font-weight: bold;
+    /* height: 1.375em; */
+    background-color: rgba(0, 60, 136, 0.5);
+}
+
+.edit-buttons{
+    z-index: 1000;
+    position: absolute;
+    bottom: 0px;
+
+}
+
+.edit-buttons button{
+    border-radius: 5px;
+    /* width: 100px; */
+    padding: 0;
+    display: inline-block;
+    color: white;
+    font-size: 0.988em;
+    font-weight: bold;
+    /* height: 1.375em; */
+    background-color: rgba(0, 60, 136, 0.5);
+    /* border: none; */
+    /* margin-left: .625em;  */
+	margin: 0 0 10px 10px;
+}
+button:hover:not([disabled]){
+    opacity: 0.7 ;
+}
+button[disabled]:hover {
+    opacity: 1.0 ;
+}
+button:disabled,
+button[disabled]{
+   background-color: grey !important;
+}
+.layer-actions {
+	position: relative;
+}
+.layer-actions button:disabled, .layer-actions button[disabled]{
+   background-color: transparent !important;
+}
+
+.layer-checkbox {
+	padding-left: 25px;
+}
+.closeButton{
+    color: rgba(0, 60, 136, 0.0) ;
+    vertical-align: top;
+
+}
+
+
+
+
+.container{
+    position: absolute;
+    top: 120px;
+    left: 2px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* align-items: left; */
+    width: fit-content;
+    z-index: 100;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.50);
+
+
+  
+}
+
+.container-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+}
+
+
+.container .container-row img{
+    width: 20px;
+    height: 20px;
+}
+
+.text-title-legend{
+    text-align: center !important;
+    font-weight: bold;
+}
+  .text p {
+    text-align: right;
+    color: black;
+    margin-right: 20px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-left: 5px;
+  }
+  
+ 
+.home-button{
+    z-index: 1000;
+    position: absolute;
+    top: 50px;
+    right: 0;
+}
+
+
+
+.home-button button{
+    border-radius: 5px;
+    /* width: 100px; */
+    padding: 0;
+    color: white;
+    font-size: 0.988em;
+    font-weight: bold;
+    /* height: 1.375em; */
+    background-color: rgba(0, 60, 136, 0.5);
+    /* border: none; */
+    /* margin-left: .625em;  */
+	margin: 10px 10px 0px 0px;
+}
+
+.change-map-button{
+    width: 80px;
+    height: 60px;
+    z-index: 1000;
+    position: absolute;
+    right: 0px;
+    bottom:10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.change-map-button button{
+    width: 80px;
+    height: 60px;
+    border-radius: 5px;
+    /* background-image: url("../../../assets/icons/maps/bologna-bing.PNG"); */
+    /* width: 100px; */
+    padding: 0;
+    color: white;
+    font-size: 0.988em;
+    font-weight: bold;
+    /* height: 1.375em; */
+    border: 2px solid darkred;
+        /* margin-left: .625em;  */
+	margin: 10px 10px 0px 0px;
+}
+
+.box-bing{
+    background-image: url("../../../assets/icons/maps/bologna-bing.PNG"); 
+}
+
+.box-osm{
+    background-image: url("../../../assets/icons/maps/bologna-osm.PNG"); 
+}

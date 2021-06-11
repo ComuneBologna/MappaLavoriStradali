@@ -1,0 +1,33 @@
+<mat-dialog-content>
+    <div class="tab-content" fusePerfectScrollbar>
+        <div fxLayoutAlign="space-between" fxLayout="row">
+            <div fxLayoutAlign="start start" fxLayout="column"
+                [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                <div class="logo-text h1" *ngIf="!isNew">Modifica utente</div>
+                <div class="logo-text h1" *ngIf="isNew">Aggiungi utente </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content p-12" *ngIf="form">
+        <form class="w-100-p" name="form" [formGroup]="form" fxLayout="column" fxFlex>
+            <div class="tab-content p-24" fusePerfectScrollbar>
+                <div class="mt-12" fxLayout="row wrap" fxLayoutAlign="space-between">
+                    <input-string formControlName="firstName" label="Nome" fxFlex="47"></input-string>
+                    <input-string formControlName="lastName" label="Cognome" fxFlex="47"></input-string>
+                    <input-string formControlName="fiscalCode" label="Codice Fiscale" fxFlex="47"></input-string>
+                    <input-string formControlName="email" label="Email" fxFlex="47"></input-string>
+                    <select-box formControlName="roleCode" [items]="roles" label="Ruolo" fxFlex="47"></select-box>
+                    <select-box formControlName="companyId" [items]="companies" label="Ditta / UO" fxFlex="47">
+                    </select-box>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close><span>Chiudi</span></button>
+    <button mat-button (click)="save()" *ngIf="form" cdkFocusInitial
+        [disabled]="form.invalid"><span>Salva</span></button>
+</mat-dialog-actions>

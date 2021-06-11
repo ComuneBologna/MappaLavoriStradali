@@ -1,0 +1,11 @@
+.yesButton{
+    margin: 0px;
+    left: 20%;
+    position: absolute;
+}
+
+.noButton{
+    margin-left: 0px !important;
+    left: 55%;
+    position: absolute;
+}

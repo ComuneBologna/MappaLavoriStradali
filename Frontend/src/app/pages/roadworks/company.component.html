@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Nuova ditta</h1>
+<mat-dialog-content>
+    <form name="form" [formGroup]="form" class="w-100-p" fxLayout="column" fxFlex>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <input-string label="Nome" formControlName="name" fxFlex="100"></input-string>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()"><span>Annulla</span></button>
+    <button mat-button (click)="save()" cdkFocusInitial [disabled]="form.invalid"><span>Salva</span></button>
+</mat-dialog-actions>

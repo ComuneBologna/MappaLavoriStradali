@@ -1,0 +1,118 @@
+<div style="width: 100%; height: 100%;" class="global-container">
+	<div class="home-button" *ngIf="!editEnabled">
+		<button matTooltip="Home" matTooltipClass="tooltip" mat-icon-button class="ol-control"
+			(click)="clickHomeButton()">
+			<mat-icon class="amber-300-fg">my_location</mat-icon>
+		</button>
+	</div>
+
+	<div class="change-map-button">
+		<button [ngClass]="{'box-osm': (!isBingSelected), 'box-bing': (isBingSelected)}" (click)="switchMap()"></button>
+	</div>
+	<div class="layer-buttons">
+		<button matTooltip="Mostra layer dell'intervento" matTooltipClass="tooltip" mat-icon-button class="ol-control"
+			(click)="showHideLayersPanel()">
+			<mat-icon class="amber-600-fg">layers</mat-icon>
+		</button>
+	</div>
+	<div *ngIf=isShowHideLayersClicked class="layer-container">
+		<div *ngFor="let container of containerElementViews">
+			<div style="position: relative">
+				<mat-checkbox style="padding-left: 5px;" labelPosition="after"
+					(change)="$event ? showHideContainer(container) : null" [(ngModel)]="container.visibility"
+					[checked]="container.visibility">
+					{{container.geoContainer.label}}
+				</mat-checkbox>
+				<button *ngIf="editEnabled" matTooltip="Aggiungi un layer" mat-icon-button
+					(click)="openDialog(container)">
+					<mat-icon class="amber-600-fg edit-layer-buttons">add</mat-icon>
+				</button>
+			</div>
+
+
+			<div *ngFor="let layer of container.layers" class="layer-actions">
+				<mat-checkbox [disabled]="!container.visibility" (change)="$event ? showHideLayer(layer) : null"
+					[(ngModel)]="layer.visibility" [checked]="layer.visibility" class="layer-checkbox">
+					<label style="vertical-align: middle; font-size: 14px">
+						{{layer.geoLayer.label}}
+					</label>
+				</mat-checkbox>
+				<button class="layer-action-button" *ngIf="editEnabled && layer.geoLayer.canBeRemoved != false"
+					[disabled]="!container.visibility" matTooltip="Elimina il Layer"
+					style="position: absolute; right:40px" mat-icon-button (click)="deleteLayer(layer, container)">
+					<mat-icon class="amber-600-fg edit-layer-buttons">clear</mat-icon>
+				</button>
+				<button *ngIf="editEnabled" [disabled]="!container.visibility" matTooltip="Rinomina il Layer"
+					style="position: absolute; right:0px" mat-icon-button (click)="renameLayer(layer)">
+					<mat-icon class="amber-600-fg edit-layer-buttons">build</mat-icon>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="editEnabled" class="edit-buttons">
+		<div *ngIf="!isEditClicked">
+			<button matTooltip="Modifica" mat-icon-button class="ol-control"
+				[disabled]="!editEnabled || (isEditClicked && !isCloseClicked)" (click)="clickEdit()">
+				<mat-icon class="amber-600-fg">create</mat-icon>
+			</button>
+			<button matTooltip="Elimina elemento selezionato" mat-icon-button *ngIf="!(!deleteEnabled || isCenterPin)"
+				(click)="deleteSelectedFeature()">
+				<mat-icon class="amber-600-fg">delete_forever</mat-icon>
+			</button>
+		</div>
+		<span *ngIf="isEditClicked">
+			<button matTooltip="Termina modifiche" mat-icon-button (click)="clickEdit()">
+				<mat-icon class="amber-600-fg">keyboard_arrow_left</mat-icon>
+			</button>
+
+			<select style="margin-left: 10px" *ngIf="visibleLayer.length>0" [(ngModel)]="currentLayer">
+				<option *ngFor="let layer of visibleLayer" [ngValue]="layer">{{getLabelSelect(layer)}}</option>
+			</select>
+			<button matTooltip="Aggiungi una linea" [disabled]="!visibleLayer.length>0" mat-icon-button
+				(click)="drawOnMap('LineString')">
+				<mat-icon class="amber-600-fg">timeline</mat-icon>
+			</button>
+			<button matTooltip="Aggiungi un punto" [disabled]="!visibleLayer.length>0" mat-icon-button
+				(click)="drawOnMap('Point')">
+				<mat-icon class="amber-600-fg">scatter_plot</mat-icon>
+			</button>
+			<button matTooltip="Aggiungi un cerchio" [disabled]="!visibleLayer.length>0" mat-icon-button
+				(click)="drawOnMap('Circle')">
+				<mat-icon class="amber-600-fg">add_circle_outline</mat-icon>
+			</button>
+			<button matTooltip="Aggiungi un poligono" [disabled]="!visibleLayer.length>0" mat-icon-button
+				(click)="drawOnMap('Polygon')">
+				<mat-icon class="amber-600-fg">format_shapes</mat-icon>
+			</button>
+		</span>
+	</div>
+	<div class="container text">
+		
+		<p class="text-title-legend">Legenda</p>
+		
+		<div class="container-row">
+			<img src="assets/icons/maps/work_verde_modificato.png">
+			<p>Completato</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_azzurro_modificato.png">
+			<p>In programma</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_giallo_modificato.png">
+			<p>In fase di attivazione</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_rosso_modificato.png">
+			<p>In corso</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_grigio_modificato.png">
+			<p>Non definito</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_viola_modificato.png">
+			<p>Pianificato</p>
+		</div>
+	</div>
+</div>

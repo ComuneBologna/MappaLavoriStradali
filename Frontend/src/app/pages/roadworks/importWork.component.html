@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Importa lavoro</h1>
+<mat-dialog-content>
+
+    <form name="form" [formGroup]="form" class="w-100-p" fxLayout="column" fxFlex>
+        <div class="tab-content" fusePerfectScrollbar>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-md="45" fxFlex.gt-sm="15" fxFlex="45">
+                    <input type="text" placeholder="Ente" matInput [matAutocomplete]="autoCompany" formControlName="companyName" >
+                    <mat-autocomplete #autoCompany="matAutocomplete" [displayWith]="displayCompany" (optionSelected)="companySelected($event)">
+                        <mat-option *ngFor="let company of filteredCompanies | async" [value]="company">
+                            {{company.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div class="file-uploader" fxFlex.gt-md="45" fxFlex.gt-sm="15" fxFlex="45" class="pt-8">
+                    <input hidden type="file" name="import" #fileInput (change)="addFile($event.target.files)" />
+                    <button mat-button color="primary" class="add-file-button primary" (click)="fileInput.click()"
+                        aria-label="Add file">
+                        Importa lavoro
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <span>{{fileName}}</span>
+            </div>
+        </div>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()"><span>Annulla</span></button>
+    <button mat-button (click)="save()" cdkFocusInitial [disabled]="form.invalid"><span>Salva</span></button>
+</mat-dialog-actions>

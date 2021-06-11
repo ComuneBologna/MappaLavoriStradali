@@ -1,0 +1,9 @@
+<div class="authority-choicer px-12 py-24 mb-24" *ngIf="authorities.length>1">
+    <form>
+        <select-box [items]="authorities" [value]="currentValue" itemKey="authorityId" itemLabel="name"
+            (onValueChanged)="setAuthority($event)">
+        </select-box>
+
+    </form>
+</div>
+<div class="mb-24" *ngIf="authorities.length<=1"></div>

@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.mat-tooltip{
+    font-size: 8pt !important
+}
+
+.mat-checkbox-inner-container {
+    left: 255px;
+    position: absolute;
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+    z-index: 100;
+}
+
+.mat-checkbox-label {
+    padding-left: 10px;
+}
+
+.ol-geocoder ul.gcd-gl-result {
+	z-index: 200;
+}
+/* .ol-attribution.ol-uncollapsible{
+    visibility: hidden;
+} */
+
+
+.text-two-line {
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	display: -webkit-box;
+}
+
+body{
+    margin: 0;
+}

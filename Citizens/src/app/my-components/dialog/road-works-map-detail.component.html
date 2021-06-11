@@ -1,0 +1,37 @@
+<div *ngIf="data.description" class="mat-typography">
+	<strong  fxFlex="20">Descrizione: </strong>
+		<p fxFlex="30">{{data.description}}</p>
+</div>
+<!-- <strong  fxFlex="20" *ngIf="data.description">Descrizione: </strong>
+<p
+    *ngIf="data.description"
+    fxFlex="30" 
+    [ngClass]="{'text-two-line': (showCompactVisualizationNotes)}"
+    style="-webkit-box-orient: vertical;"
+    (click)="onVisualizationNotesClicked()"
+>{{data.description}}</p> -->
+<div class="mat-typography">
+	<strong  fxFlex="20">Indirizzo: </strong>
+		<p fxFlex="30">{{data.extendedAddressName}} {{data.visualizationNotes}}</p>
+	<strong  fxFlex="20" *ngIf="showDates">Date di inizio e fine previste:</strong><p fxFlex="30" *ngIf="showDates">dal {{startDate | dateFormat_IT}} al {{endDate | dateFormat_IT}}</p>
+</div>
+<mat-dialog-content class="mat-typography" style="max-height: 200px;">
+	<div fxLayout="row wrap">
+		<strong  fxFlex="20" *ngIf="data.trafficChangesMeasure">Provvedimento di modifica alla circolazione: </strong>
+		<p
+			*ngIf="data.trafficChangesMeasure"
+			fxFlex="30"
+			[ngClass]="{'text-two-line': (showCompactTrafficChangesMeasure)}"
+			style="-webkit-box-orient: vertical;"
+			(click)="onTrafficChangesMeasureClicked()"
+			>{{data.trafficChangesMeasure}}</p>
+	
+
+		
+		<strong  fxFlex="20">Azienda: </strong><p fxFlex="30">{{data.companyName}}</p>	
+		<a *ngIf="data.referredLink" target="_new" [href]="data.referredLink">APPROFONDISCI</a>
+	</div>	
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Chiudi</button>
+</mat-dialog-actions>

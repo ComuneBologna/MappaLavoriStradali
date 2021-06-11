@@ -1,0 +1,94 @@
+<div class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24"
+            fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+        <!-- APP TITLE -->
+        <div class="logo mb-24 mb-md-0"
+                fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                assessment
+            </mat-icon>
+            <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                Log importazione lavori
+            </span>
+        </div>
+        <!-- / APP TITLE -->
+
+        <!-- ADD BUTTON -->
+        <!-- <button mat-raised-button [routerLink]="addUrl" class="fuse-white mt-24 mt-md-0">
+            <span>AGGIUNGI</span>
+        </button> -->
+        <!-- / ADD BUTTON -->
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT-->
+    <div class="content">
+        <log-search (onSearch) ="search($event)"></log-search>
+        <mat-table class="table-table"
+        #table [dataSource]="dataSource"
+        [@animateStagger]="{value:'50'}"
+        fusePerfectScrollbar>
+
+        <!-- ID Column -->
+            <!-- <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef >ID</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{data.id}}</p>
+                </mat-cell>
+            </ng-container> -->
+
+            <ng-container matColumnDef="fileName">
+                <mat-header-cell *matHeaderCellDef >Nome file</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{data.fileName}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="companyName">
+                <mat-header-cell *matHeaderCellDef >Nome ditta</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{data.companyName}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="migrationDate">
+                <mat-header-cell *matHeaderCellDef >Data migrazione</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{data.migrationDate | onlyDate}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef style="width:20px;">Azioni</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="export(data.id)" *ngIf="canManage">
+                                <mat-icon>cloud_download</mat-icon>
+                                <span>Scarica</span>
+                            </button>
+                        </mat-menu>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+            <mat-row *matRowDef="let data; columns: displayedColumns;"
+                        class="table-row"
+                        matRipple>
+            </mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator
+            [length]="totalCount"
+            [pageSize]="50"
+            [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+    <!-- / CONTENT CARD -->
+</div>

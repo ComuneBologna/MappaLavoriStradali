@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Si sono verificati i seguenti errori:</h2>
+<mat-dialog-content class="mat-typography">
+    
+    <blockquote>
+        <p *ngFor="let error of errors">{{error}}</p>
+    </blockquote>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Chiudi</button>
+</mat-dialog-actions>

@@ -1,0 +1,74 @@
+<div class="page-layout simple fullwidth">
+
+
+    <div class="header accent p-24 pb-0" fxLayout="column" fxLayoutAlign="space-between">
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <span [@animate]="{value:'*',params:{x:'50px'}}">
+                <img class="icon" src="assets/images/logos/umarello.png">
+            </span>
+        </div>
+    </div>
+
+    <div class="content p-24">
+        <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row wrap"
+            fxLayoutAlign.gt-sm="space-between center">
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="isTenantAdmin">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center" [routerLink]="['/users']">
+                        <mat-icon class="s-60" style="color:#425C83">supervisor_account</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Utenti</a>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="!isTenantAdmin">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center" [routerLink]="['/roadworks']">
+                        <mat-icon class="s-60" style="color:#425C83">all_out</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Lavori</a>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="canImport">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center" [routerLink]="['/roadways']">
+                        <mat-icon class="s-60" style="color:#425C83">category</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Sedi</a>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="canImport">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center" [routerLink]="['/companies']">
+                        <mat-icon class="s-60" style="color:#425C83">grain</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Ditte</a>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="canImport">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center"
+                        [routerLink]="['/operational-units']">
+                        <mat-icon class="s-60" style="color:#425C83">settings_input_component</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Unità operative</a>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="canImport">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center" [routerLink]="['/neighborhoods']">
+                        <mat-icon class="s-60" style="color:#425C83">map</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Quartieri</a>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33" class="mb-16" *ngIf="canImport">
+                <div class="fuse-card auto-width">
+                    <div class="p-16" fxLayout fxLayoutAlign="space-between center" [routerLink]="['/periods']">
+                        <mat-icon class="s-60" style="color:#425C83">settings_applications</mat-icon>
+                        <a class="font-size-20 font-weight-300 line-height-1 mt-8">Periodi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

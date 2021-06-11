@@ -1,0 +1,8 @@
+<mat-form-field   floatLabel="always"  class="w-100-p">
+    <input matInput [matDatepicker]="picker" [placeholder]="label" [(ngModel)]="value" [disabled]="disabled">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<mat-error *ngIf="!valid">{{errorMessage}}</mat-error>
+
+

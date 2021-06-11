@@ -1,0 +1,14 @@
+{
+    "production": false,
+    "hmr": false,
+    "security": {
+        "issuer": "https://login-demo.asfweb.it/e5283a46-4b45-4cc6-864a-74063f8cc7b5"
+    },
+    "apiUrl": "https://roadworksapi-demo.azurewebsites.net/v1",
+    "signalrUrl": "https://functions-demo.smartpa.cloud/api/",
+    "userUrl": "https://api-demo.smartpa.cloud/core/v1/backofficesecurity/getuserpermissions",
+    "smartPaCoreUrl": "https://api-demo.smartpa.cloud/core/v1",
+    "apiStreetUrl": "https://api-demo.smartpa.cloud/placename/v1/PlaceName/map/addresses",
+    "placeNameUrl": "https://api-demo.smartpa.cloud/placeName/v1",
+    "applicationId": 9
+}

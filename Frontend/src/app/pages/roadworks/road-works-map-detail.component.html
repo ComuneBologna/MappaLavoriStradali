@@ -1,0 +1,115 @@
+<div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon class="logo-icon s-32 mr-16" [innerHTML]="imageStatus()"></mat-icon>
+    <span class="logo-text h1">{{data.description}}</span>
+</div>
+<mat-dialog-content class="content pt-12">
+    <div fxLayout="row wrap">
+        <div class="fuse-card m-32 mb-12 p-12 mat-elevation-z2" fxLayout="row wrap" fxFlex="100" *ngIf="!showDetail">
+            <div fxFlex="30" fxFlex.gt-md="13" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Anno</strong>
+                <p class="mt-4">{{data.year}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="13" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Stato</strong>
+                <p class="mt-4">{{getStatus(data.status)}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="14" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Tipologia</strong>
+                <p class="mt-4">{{getNotPlanned(data.notScheduledStatus)}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Sovrapposizione</strong>
+                <p class="mt-4">{{getOverlap(data.isOverlap)}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Priorità</strong>
+                <p class="mt-4">{{getPriority(data.priority)}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Ente</strong>
+                <p class="mt-4">{{data.companyName}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="60"class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Via</strong>
+                <div>
+                    <span >{{data.address}}   
+                        <span  *ngIf="showDates">dal civico  {{data.addressNumberFrom}} al civico {{data.addressNumberTo}}</span> 
+                        <span> &nbsp; {{data.visualizationNotes}}</span>
+                    </span>
+                </div>
+            </div>
+            <div fxFlex="20" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Quartieri</strong>
+                <p class="mt-4">{{data.neighborhoods}}</p>
+            </div>
+            <div fxFlex="20" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Sede</strong>
+                <p class="mt-4">{{data.roadways}}</p>
+            </div> 
+            <div  fxFlex="30" fxFlex.gt-md="60" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Provvedimento di modifica alla circolazione</strong>
+                <p class="mt-4">{{data.trafficChangesMeasure}}</p>
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Stima inizio e fine dei lavori </strong>
+                <div fxLayoutAlign="space-between"  >
+                    <span *ngIf="data.estimatedStartDate != null">Dal {{data.estimatedStartDate | onlyDate}}
+                        <span *ngIf="data.estimatedEndDate != null">al {{data.estimatedEndDate | onlyDate}}</span>
+                    </span>
+                </div>    
+            </div>
+            <div fxFlex="30" fxFlex.gt-md="20" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Data effettiva dei lavori </strong>
+                <div fxLayoutAlign="space-between"  >
+                    <span *ngIf="data.effectiveStartDate != null">Dal {{data.effectiveStartDate | onlyDate}} 
+                    <span *ngIf="data.effectiveEndDate != null"> al {{data.effectiveEndDate | onlyDate}}</span>
+                </span>
+                </div>    
+            </div>      
+            <div fxFlex="100" fxFlex.gt-md="100" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Link</strong>
+                <p class="mt-4">
+                    <a fxFlex="100" href="{{data.link}}">{{data.link}}</a>
+                </p>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="100" class="mb-12 p-6">
+                <strong class="m-0 font-weight-700">Allegati</strong>
+                <p *ngFor="let item of attachments ">
+                    <a class="pointer" [click-attachment]="item.getUrl">{{item.info.name}}</a>
+                </p> 
+            </div>  
+        </div>
+        <div class="fuse-card m-32 p-12 mat-elevation-z2" fxLayout="row wrap" fxFlex="100" *ngIf="showDetail">
+            <div fxFlex="100">
+                <strong class="m-0 font-weight-700">Indirizzo: </strong>
+                <p class="mt-4">{{extendedAddressName}} {{data.visualizationNotes}}</p>
+            </div>
+            <div fxFlex="100">
+                <strong class="m-0 font-weight-700" *ngIf="showDatesCitizen">Date di inizio e fine previste: </strong>
+                <p class="mt-4" *ngIf="showDatesCitizen">dal {{startDate | onlyDate}} al {{endDate | onlyDate}}</p>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="100" >
+                <strong  class="m-0 font-weight-700" *ngIf="data.trafficChangesMeasure">Provvedimento di modifica alla circolazione: </strong>
+                <p  class="mt-4"
+                    *ngIf="data.trafficChangesMeasure"
+                    [ngClass]="{'text-two-line': (showCompactTrafficChangesMeasure)}"
+                    style="-webkit-box-orient: vertical;"
+                    (click)="onTrafficChangesMeasureClicked()">
+                    {{data.trafficChangesMeasure}}
+                </p>                
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="100">                
+                <strong  class="m-0 font-weight-700">Azienda: </strong>
+                <p class="mt-4">{{data.companyName}}</p>
+                <p><a *ngIf="referredLink" target="_new" [href]="referredLink">APPROFONDISCI</a></p>	
+            </div>
+        </div>
+    </div>
+    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close [routerLink]="gotoEdit()" [queryParams]="{id:data.id,criteria:setSerchCriteriaString}" >Modifica</button>
+    <button mat-button (click)="displayInfoCitizen()" *ngIf="!showDetail">Anteprima Cittadino</button>
+    <button mat-button (click)="displayInfoCitizen()" *ngIf="showDetail">Dettaglio completo</button>
+    <button mat-button mat-dialog-close>Chiudi</button>
+</mat-dialog-actions>

@@ -1,0 +1,193 @@
+<div class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24"
+        fxLayout="column" fxLayoutAlign="center center"
+        fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+        <!-- APP TITLE -->
+        <div class="logo mb-24 mb-md-0"
+            fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    {{this.scheduled ? "all_out" : "alarm"}}
+            </mat-icon>
+            <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                Lavori
+            </span>
+        </div>
+        <!-- / APP TITLE -->
+
+        <!-- ADD BUTTON -->
+        <div fxLayoutAlign="space-between">
+            <button mat-raised-button class="fuse-white mt-24 mt-md-0 mr-24" *ngIf="canExport" (click)="importWork()" >
+                <span>Importa lavori ditta</span>
+            </button>
+            <button mat-raised-button class="fuse-white mt-24 mt-md-0" [matMenuTriggerFor]="menuToAdd" *ngIf="!canManageOffice">
+                <span>AGGIUNGI</span>
+            </button>
+            <mat-menu #menuToAdd="matMenu"> 
+                <button mat-menu-item [routerLink]="manageAddLink(RoadWorkCategories.Scheduled)" [queryParams]="{criteria: setSerchCriteriaString}">Lavoro programmato</button>
+                <button mat-menu-item [routerLink]="manageAddLink(RoadWorkCategories.NotScheduled)" [queryParams]="{criteria: setSerchCriteriaString}" *ngIf="!canImport">Lavoro non programmato</button>
+                <button mat-menu-item [routerLink]="manageAddLink(RoadWorkCategories.Planned)" [queryParams]="{criteria: setSerchCriteriaString}" *ngIf="!canImport">Pianificato</button>
+            </mat-menu>
+        </div>
+<!-- / ADD BUTTON -->
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <road-works-search (onSearch) ="search($event)"></road-works-search>
+        <mat-tab-group (selectedTabChange)="changeTab($event)">
+            <mat-tab label="Lavori">
+
+                <mat-table class="table-table"
+                        #table [dataSource]="dataSource" 
+                        matSort
+                        [@animateStagger]="{value:'50'}"
+                        fusePerfectScrollbar>
+        
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef >ID</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.id}}</p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="isOverlap">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Sov.</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.isOverlap ? "Si" : "No"}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <!-- <ng-container matColumnDef="priority">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Sov.</mat-header-cell>
+                        <mat-cell *matCellDef="let data" [ngClass]="{'high-priority' : data.overlap == 'High'}">
+                            <p class="text-truncate">{{enumUtils.getPriorityDescription(data.priority)}}</p>
+                        </mat-cell>
+                    </ng-container> -->
+
+                    <ng-container matColumnDef="publishStatus" *ngIf="canManageOffice">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Stato pubblicazione</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{enumUtils.getPublishStatusDescription(data.publishStatus)}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="category">
+                        <mat-header-cell *matHeaderCellDef >Tipologia lavoro</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{enumUtils.getCategoryDescription(data.category)}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="address">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Via</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p>{{data.address}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="neighborhood">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Quartiere</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.neighborhoods.join(' - ')}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="companyName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Ente</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.companyName}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="description">
+                        <mat-header-cell *matHeaderCellDef >Descrizione Lavori</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p>{{data.description}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="roadways">
+                        <mat-header-cell *matHeaderCellDef >Sede</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.roadways.join(' - ')}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{enumUtils.getStatusDescription(data.status)}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="startDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Data inizio</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.effectiveStartDate | onlyDate}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="endDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Data fine</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <p class="text-truncate">{{data.effectiveEndDate | onlyDate}}</p>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef style="width:20px;">Azioni</mat-header-cell>
+                        <mat-cell *matCellDef="let data">
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item [routerLink]="manageEditLink(data)" [queryParams]="{id:data.id, readonly: true, criteria: setSerchCriteriaString}" [disabled]="disabled">
+                                    <mat-icon>picture_in_picture_alt</mat-icon>
+                                    <span>Visualizza</span>
+                                </button>
+                                <button mat-menu-item [routerLink]="manageEditLink(data)" [queryParams]="{id:data.id, criteria: setSerchCriteriaString}" [disabled]="!canManageOffice && !canManage && data.publishStatus == Draft">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Modifica</span>
+                                </button>
+                                <button mat-menu-item (click)="startDelete(data.id)" *ngIf="!canManageOffice">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Elimina</span>
+                                </button> 
+                            </mat-menu>
+                        </mat-cell>
+                    </ng-container>
+        
+        
+        
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        
+                    <mat-row *matRowDef="let data; columns: displayedColumns;"
+                            class="table-row"
+                            matRipple>
+                    </mat-row>
+        
+                </mat-table>
+        
+                <mat-paginator #paginator
+                            [length]="totalCount"
+                            [pageIndex]="pageIndex"
+                            [pageSize]="50"
+                            [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+
+            </mat-tab>
+            <mat-tab label="Mappa">
+                <div class="pl-48 pr-48">
+                    <h2 class="text-center">{{'Numero interventi:' + totalCount}}</h2>
+                    <app-map-editor [editEnabled]="false" [geoFeaturesContainer]="features" [startedWorks]="visibleWorks"  (selectedGeoContainerId)="selectedWork($event)" *ngIf="showMap"></app-map-editor>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+</div>

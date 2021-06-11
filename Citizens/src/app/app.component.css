@@ -1,0 +1,30 @@
+.container-info {
+	
+	background: rgba(255,255,255,0.95);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.50);
+    border-radius: 8px;
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+   
+}
+.container-info-text {
+	overflow-y: auto;
+	height: 200px;
+	width: 350px;
+	padding: 5px;
+	font-family: 'ROBOTO';
+	font-size: small;
+	color: #4e4e4e;
+	
+}
+.container-info-close-button {
+	position: absolute;
+	top: 0px;
+    right: 0px;
+}
+.container-hidden {
+	display: none;
+}

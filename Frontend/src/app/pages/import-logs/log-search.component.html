@@ -1,0 +1,29 @@
+<div class="filters mt-8 pl-0 pr-0 mb-12" *ngIf="canManage">
+    <form [formGroup]="formFilter">
+        <mat-accordion> 
+            <mat-expansion-panel class="mat-elevation-z" #searchPanel>
+                <mat-expansion-panel-header class="color" fxlayout="row wrap">
+                    <mat-panel-title fxFlex="95">
+                        Ricerca
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap" >
+                    <div fxFlex="80" fxFlex.xs="70">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="60" fxFlex.xs="70">
+                            <select-box formControlName="companyId" label="Ente" fxFlex.gt-md="55" fxFlex.gt-sm="45" fxFlex="45" [items]="companies" itemLabel="name" nullLabel="Seleziona ente"></select-box>
+                            <input-date label="Data migrazione" formControlName="migrationDate" fxFlex.gt-md="40" fxFlex.sm="45" fxFlex="45"></input-date> 
+                        </div>
+                    </div>
+                    <div fxFlex="20" fxFlex.xs="30" fxLayoutAlign="end start" class="pt-8">
+                        <button mat-raised-button color="primary" (click)="search()"  class="mr-24">
+                            <span>Cerca</span>
+                        </button>    
+                        <button mat-raised-button (click)="reset()" >
+                            <span>Reset</span>                                            
+                        </button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </form>    
+</div>

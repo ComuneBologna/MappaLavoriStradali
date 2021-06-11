@@ -1,0 +1,37 @@
+<div class="detail page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header accent pr-8" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="returnUrl">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <div fxLayout="column" fxLayoutAlign="start start"
+                [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                <div class="logo-text h1" *ngIf="isNew"> {{newTitle}}</div>
+                <div class="logo-text h1" *ngIf="!isNew"> {{editTitle}}</div>
+            </div>
+        </div>
+        <!-- / APP TITLE -->
+
+        <button mat-raised-button *ngIf="form && canManage" class="save-button" [disabled]="form.invalid"
+            (click)="save()">
+            <span>SALVA</span>
+        </button>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" *ngIf="form">
+        <form name="form" [formGroup]="form" class="w-100-p" fxLayout="column" fxFlex>
+            <div class="tab-content p-24" fusePerfectScrollbar fxLayout="column">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                    <input-string label="Nome" formControlName="name" fxFlex="100"></input-string>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

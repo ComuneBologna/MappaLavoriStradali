@@ -1,0 +1,113 @@
+<div class="detail page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header accent pr-8" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="listLink()" [queryParams]="{criteria: lastFilter}">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <div fxLayout="column" fxLayoutAlign="start start"
+                 [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">                     
+                 <div class="logo-text h1" *ngIf="isNew"> Nuovo lavoro stradale</div>
+                <div class="logo-text h1" *ngIf="!isNew"> Modifica lavoro stradale</div>
+            </div>
+        </div>
+        <!-- / APP TITLE -->
+
+        <button mat-raised-button *ngIf="form" class="save-button" [disabled]="form.invalid" (click)="save()">
+            <span>SALVA</span>
+        </button>
+    </div>
+    <!-- / HEADER -->
+            <!-- CONTENT -->
+    <div class="content" *ngIf="form">
+        <form name="form" [formGroup]="form" class="w-100-p">
+            <mat-tab-group (selectedTabChange)="changeTab($event)"> 
+                <mat-tab label="Dati">
+                    <div class="tab-content p-24" fusePerfectScrollbar fxLayout="column">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between"  class="mt-12">
+                            <input-string label="Descrizione lavori" formControlName="description" rows="2" fxFlex="100"></input-string> 
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <select-box label="Anno" formControlName="year" fxFlex.gt-md="10" fxFlex.gt-sm="20" fxFlex="100" [items]="yearsItems" nullLabel="Seleziona anno"></select-box> 
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-md="55" fxFlex.gt-sm="45" fxFlex="100">
+                                <input type="text" placeholder="Via" matInput formControlName="address" [matAutocomplete]="auto1" >
+                                <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="addressSelected($event)">
+                                    <mat-option *ngFor="let option of filteredStreets | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-sm="10" fxFlex="45">
+                                <input type="text" placeholder="Civico dal" matInput formControlName="addressNumberFrom" [matAutocomplete]="auto2">
+                                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="numberSelected($event, true)">
+                                    <mat-option *ngFor="let option of filteredHouseNumbersFrom | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-sm="10" fxFlex="45">
+                                <input type="text" placeholder="Civico al" matInput formControlName="addressNumberTo" [matAutocomplete]="auto3">
+                                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="numberSelected($event, false)">
+                                    <mat-option *ngFor="let option of filteredHouseNumbersTo | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                            
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <select-box label="Quartieri" formControlName="neighborhoods" fxFlex.gt-md="45" fxFlex="100" [items]="neighborhoodsItems" itemKey="name" itemLabel="name" [multiple]="true"></select-box> 
+                            <select-box label="Sede" formControlName="roadways" fxFlex.gt-md="50" fxFlex="100" [items]="roadways" itemLabel="name" [multiple]="true"></select-box> 
+                        </div>
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <div fxFlex.gt-md="50" fxFlex="100">
+                                <p>Stima inizio e fine lavori</p>                                        
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-date label="Dal" formControlName="estimatedStartDate" fxFlex.gt-md="45" fxFlex="47"></input-date> 
+                                    <input-date label="al" formControlName="estimatedEndDate" fxFlex.gt-md="45" fxFlex="47"></input-date> 
+                                </div>
+                            </div>
+                            <div fxFlex.gt-md="50" fxFlex="100">
+                                
+                            </div>
+                            <div fxFlex.gt-md="30" fxFlex="100">
+                                <p>Dati referente Comune</p>                                        
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-string label="Nome" formControlName="municipalityReferentName" fxFlex.gt-md="45" fxFlex="100" ></input-string> 
+                                    <input-string label="N° telefono" formControlName="municipalityReferentPhoneNumber" fxFlex.gt-md="50" fxFlex="100" ></input-string> 
+                                </div>
+                            </div>
+                            <div fxFlex.gt-md="30" fxFlex="100">
+                                <p>Dati referente Ditta</p>                                        
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-string label="Nome" formControlName="companyReferentName" fxFlex.gt-md="45" fxFlex="100" ></input-string> 
+                                    <input-string label="N° telefono" formControlName="companyReferentPhoneNumber" fxFlex.gt-md="50" fxFlex="100" ></input-string> 
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12">
+                            <input-string label="Note localizzazione" formControlName="visualizationNotes" rows="3" fxFlex="100"></input-string> 
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <input-string label="Note" formControlName="notes" rows="3" fxFlex="100"></input-string> 
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Mappa">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <div fxLayout="row wrap" fxLayoutAlign="start start">
+                            <app-map-editor [editEnabled]="true" [labeledPoints]="labeledPoints" [geoFeaturesContainer]="geoFeatureContainers" (featuresUpdate)="geoFeatureContainerUpdate($event)" *ngIf="showMap"></app-map-editor>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
+</div>

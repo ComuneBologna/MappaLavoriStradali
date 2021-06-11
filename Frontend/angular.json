@@ -1,0 +1,164 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "asselavoristradali-bo": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/ol/ol.css",
+                            "node_modules/ol-geocoder/dist/ol-geocoder.min.css"
+                        ],
+                        "scripts": [],
+                        "showCircularDependencies": false
+                    },
+                    "configurations": {
+                        "pipeline": {
+                            "outputPath": "dist",
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": true,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "4mb",
+                                    "maximumError": "6mb"
+                                }
+                            ]
+                        },
+                        "ec": {
+                            "sourceMap": true,
+                            "extractCss": true
+                        },
+                        "hmr": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.hmr.ts"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "asselavoristradali-bo:build",
+                        "port": 4201
+                    },
+                    "configurations": {
+                        "smartpa": {
+                            "baseHref": "/asselavoristradali-bo/",
+                            "host": "localhost_dev",
+                            "port": 80
+                        },
+                        "bologna": {
+                            "baseHref": "/asselavoristradali-bo-bologna/",
+                            "host": "localhost_dev",
+                            "port": 80
+                        },
+                        "smartpa-local": {
+                            "baseHref": "/asselavoristradali-bo/",
+                            "host": "localhost_local",
+                            "port": 80
+                        },
+                        "bologna-local": {
+                            "baseHref": "/asselavoristradali-bo-bologna/",
+                            "host": "localhost_local",
+                            "port": 80
+                        },
+                        "production": {
+                            "browserTarget": "asselavoristradali-bo:build:production"
+                        },
+                        "hmr": {
+                            "hmr": true,
+                            "browserTarget": "asselavoristradali-bo:build:hmr"
+                        },
+                        "ec": {
+                            "browserTarget": "asselavoristradali-bo:build:ec"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "asselavoristradali-bo:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/ol/ol.css",
+                            "node_modules/ol-geocoder/dist/ol-geocoder.min.css"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "tsconfig.app.json",
+                            "tsconfig.spec.json",
+                            "e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "e2e/protractor.conf.js",
+                        "devServerTarget": "asselavoristradali-bo:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "asselavoristradali-bo:serve:production"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "asselavoristradali-bo"
+}

@@ -1,0 +1,7 @@
+<label class="file-input">
+    <span class="file-input-label">{{label}}</span>
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Seleziona file</button>
+    <span class="m-l-15" >{{fileName}}</span>
+    <input #fileInput type="file" [accept]="chainedExtensions" style="display: none;" (change)="handleFileInput($event.target.files)">
+</label>
+<mat-error *ngIf="!valid">{{errorMessage}}</mat-error>

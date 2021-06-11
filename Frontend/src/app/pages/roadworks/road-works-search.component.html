@@ -1,0 +1,61 @@
+<div class="filters mt-8 pl-0 pr-0 mb-12">
+    <form [formGroup]="formFilter">
+        <mat-accordion> 
+            <mat-expansion-panel class="mat-elevation-z" #searchPanel>
+                <mat-expansion-panel-header class="color" fxlayout="row wrap">
+                    <mat-panel-title fxFlex="95">
+                        Ricerca
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap" >
+                    <div fxFlex="80" fxFlex.xs="70">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <input-string formControlName="addressName" label="Via" fxFlex.gt-md="20" fxFlex.gt-sm="45" fxFlex="45" ></input-string>
+                            <select-box formControlName="yearFrom" label="Anno da:" [items]="years" fxFlex.gt-md="8" fxFlex.sm="45" fxFlex="45"></select-box>
+                            <select-box formControlName="yearTo" label="Anno a:" [items]="years" fxFlex.gt-md="8" fxFlex.sm="45" fxFlex="45"></select-box>
+                            <select-box formControlName="companyType" label="Tipologia Ente" fxFlex.gt-md="13" fxFlex.gt-sm="45" fxFlex="100" [items]="companyTypes" nullLabel="Seleziona tipologia ente" *ngIf="!canImport || canManageOffice"></select-box>
+                            <select-box formControlName="companyId" label="Ente" fxFlex.gt-md="12" fxFlex.gt-sm="45" fxFlex="45" [items]="companyItems" itemLabel="name" nullLabel="Seleziona ente" *ngIf="!canImport || canManageOffice"></select-box>
+                            <select-box formControlName="categories" label="Tipologia Lavoro" fxFlex.gt-md="14" fxFlex.gt-sm="45" fxFlex="45" [items]="RoadWorkCategories" [multiple]="true" *ngIf="!canImport || canManageOffice"></select-box>
+                            <select-box formControlName="status" label="Stato" fxFlex.gt-md="10" fxFlex.sm="45" fxFlex="100" [items]="statusItems" nullLabel="Seleziona stato"></select-box> 
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <select-box label="Stato pubblicazione" formControlName="publishStatus" fxFlex.gt-md="46.5" fxFlex.gt-sm="45" fxFlex="50" [items]="visibleItems" nullLabel="Seleziona"></select-box>
+                            <select-box formControlName="neighborhood" label="Quartiere" itemKey="name" itemLabel="name" fxFlex.gt-md="46.5" fxFlex.gt-sm="45" fxFlex="50" [items]="neighborhoodsItems"></select-box> 
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <select-box formControlName="roadwayName" label="Sede" fxFlex.gt-md="20" fxFlex.gt-sm="45" fxFlex="100" [items]="roadways" itemLabel="name" itemKey="name"></select-box> 
+                            <select-box label="Sovrapposizione" formControlName="isOverlap" fxFlex.gt-md="20" fxFlex.sm="45" fxFlex="45" [items]="overlapItems" nullLabel="Seleziona sovrapposizione"></select-box> 
+                            <select-box label="Priorità" formControlName="priorities" fxFlex.gt-md="20" fxFlex.sm="45" fxFlex="45" [items]="priorityItems" nullLabel="Seleziona priorità"></select-box>
+                            <select-box label="Pubblicato" formControlName="visibleType" fxFlex.gt-md="20" fxFlex.gt-sm="45" fxFlex="45" [items]="visibleTypes" *ngIf="!canImport || canManageOffice"></select-box> 
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <input-date label="Data inizio dal" formControlName="effectiveStartDateFrom" fxFlex.gt-md="20" fxFlex.sm="45" fxFlex="45"></input-date> 
+                            <input-date label="Data inizio al" formControlName="effectiveStartDateTo" fxFlex.gt-md="20" fxFlex.sm="45" fxFlex="45"></input-date> 
+                            <input-date label="Data fine dal" formControlName="effectiveEndDateFrom" fxFlex.gt-md="20" fxFlex.sm="45" fxFlex="45"></input-date> 
+                            <input-date label="Data fine al" formControlName="effectiveEndDateTo" fxFlex.gt-md="20" fxFlex.sm="45" fxFlex="45"></input-date> 
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" *ngIf="!canImport"></div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <input-string label="Descrizione lavori" formControlName="description" rows="2" fxFlex="100"></input-string> 
+                        </div>
+                    </div>
+                    <div fxFlex="20" fxFlex.xs="30" fxLayoutAlign="end start" class="pt-8">
+                        <button mat-raised-button color="primary" (click)="search()"  class="mr-24">
+                            <span>Cerca</span>
+                        </button>    
+                        <button mat-raised-button (click)="reset()" >
+                            <span>Reset</span>                                            
+                        </button>
+                        <button mat-raised-button   class="ml-24" [matMenuTriggerFor]="menuToActivate" *ngIf="!canImport">
+                            <span>Esporta dati</span>
+                        </button>
+                        <mat-menu #menuToActivate="matMenu">
+                            <button mat-menu-item (click)="export(true)">Excel</button>
+                            <button mat-menu-item (click)="export(false)">Csv</button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </form>    
+</div>

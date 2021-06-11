@@ -1,0 +1,223 @@
+<div class="detail page-layout simple tabbed">
+
+    <!-- TOP BACKGROUND -->
+    <!-- HEADER -->
+    <div class="header accent pr-8" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="listLink()" [queryParams]="{criteria: lastFilter}">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <div fxLayout="column" fxLayoutAlign="start start"
+                [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                <div class="logo-text h1" *ngIf="isNew">Nuovo lavoro stradale</div>
+                <div class="logo-text h1" *ngIf="!isNew && !readonly ">Modifica lavoro stradale</div>
+                <div class="logo-text h1" *ngIf="readonly">Visualizza lavoro stradale </div>
+            </div>
+        </div>
+        <!-- / APP TITLE -->
+
+        <button mat-raised-button *ngIf="form && !saveDisabled" class="save-button" [disabled]="form.invalid" (click)="save()">
+            <span>SALVA</span>
+        </button>
+    </div>
+    <!-- / HEADER -->
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CONTENT -->
+    <div class="content" *ngIf="form">
+        <form name="form" [formGroup]="form" class="w-100-p">
+            <mat-tab-group (selectedTabChange)="changeTab($event)">
+                <mat-tab label="Dati" >
+                    <div class="tab-content p-24" fusePerfectScrollbar fxLayout="column">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12" *ngIf="canManageOffice">
+                            <!-- <input-string label="Descrizione per cittadini" formControlName="descriptionForCitizens" fxFlex="80" ></input-string> -->
+                            <input-string label="Provvedimento di modifica alla circolazione" formControlName="trafficChangesMeasure" rows="2" fxFlex="80"></input-string>
+                            <select-box label="Stato pubblicazione" formControlName="publishStatus" fxFlex.gt-md="13" fxFlex.gt-sm="17" fxFlex="23.5" [items]="visibleItemsPressOffice" nullLabel="Seleziona"></select-box>
+                        </div>
+                        <mat-divider class="my-36" *ngIf="canManageOffice"></mat-divider>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12">
+                            <input-string label="Descrizione lavori" formControlName="description" fxFlex.gt-md="70" fxFlex.gt-sm="70" fxFlex="45"></input-string>
+                            <select-box formControlName="category" label="Tipologia Lavoro" fxFlex.gt-md="10" fxFlex.gt-sm="15" fxFlex="23.5" [items]="RoadWorkCategories" nullLabel="Seleziona tipologia lavoro" ></select-box>
+                            <select-box label="Stato pubblicazione" formControlName="publishStatus" fxFlex.gt-md="13" fxFlex.gt-sm="17" fxFlex="23.5" [items]="visibleItems" nullLabel="Seleziona" *ngIf="!canManageOffice"></select-box>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <select-box label="Anno" formControlName="year" fxFlex.gt-md="10" fxFlex.gt-sm="15" fxFlex="45" [items]="yearsItems" nullLabel="Seleziona anno"></select-box>
+                            <select-box label="Stato" formControlName="status" fxFlex.gt-md="10" fxFlex.gt-sm="15" fxFlex="45" [items]="statusItems" nullLabel="Seleziona stato" ></select-box>
+                            <select-box label="Sovrapposizione" formControlName="isOverlap" fxFlex.gt-md="10" fxFlex.gt-sm="20" fxFlex="45" [items]="overlapItems"></select-box>
+                            <select-box label="Priorità" formControlName="priority" fxFlex.gt-md="10" fxFlex.gt-sm="15" fxFlex="45" [items]="priorityItems" nullLabel="Seleziona priorità"></select-box>
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-md="45" fxFlex.gt-sm="15" fxFlex="45" *ngIf="!canManageOffice">
+                                <input type="text" placeholder="Ente" matInput [matAutocomplete]="autoCompany" formControlName="companyName" (input)="companySelected(null)" >
+                                <button mat-icon-button matSuffix [attr.aria-label]="'Nuova azienda'"(click)="addCompany()">
+                                    <mat-icon>{{'add_circle'}}</mat-icon>
+                                </button>
+                                <mat-autocomplete #autoCompany="matAutocomplete" [displayWith]="displayCompany" (optionSelected)="companySelected($event)" >
+                                    <mat-option *ngFor="let company of filteredCompanies | async" [value]="company">
+                                        {{company.name}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <input-string formControlName="companyNamePO" label="Ente" fxFlex.gt-md="45" fxFlex.gt-sm="15" fxFlex="45" *ngIf="canManageOffice"></input-string>
+
+                            <select-box label="Stato non programmato" *ngIf="notScheduled" formControlName="notScheduledStatus" fxFlex.gt-md="10" fxFlex.gt-sm="15" fxFlex="45" [items]="notPlannedCategoryStatusItems" nullLabel="Seleziona stato"></select-box>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-md="45" fxFlex.gt-sm="70" fxFlex="100">
+                                <input type="text" placeholder="Via" matInput formControlName="address" [matAutocomplete]="auto1">
+                                <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="addressSelected($event)">
+                                    <mat-option *ngFor="let option of filteredStreets | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+
+                            <!-- <input-string label="Via" formControlName="address" fxFlex.gt-md="25" fxFlex.gt-sm="70" fxFlex="100"></input-string>  -->
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-md="23" fxFlex.gt-sm="10" fxFlex="45">
+                                <input type="text" placeholder="Civico dal" matInput formControlName="addressNumberFrom" [matAutocomplete]="auto2">
+                                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="numberSelected($event, true)">
+                                    <mat-option *ngFor="let option of filteredHouseNumbersFrom | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="always" class="w-100-p" fxFlex.gt-md="22" fxFlex.gt-sm="10" fxFlex="45">
+                                <input type="text" placeholder="Civico al" matInput formControlName="addressNumberTo" [matAutocomplete]="auto3">
+                                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="numberSelected($event, false)">
+                                    <mat-option *ngFor="let option of filteredHouseNumbersTo | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12">
+                            <input-string label="Note di localizzazione" formControlName="visualizationNotes" rows="2" fxFlex="100" ></input-string>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <select-box label="Quartieri" formControlName="neighborhoods" fxFlex.gt-md="45" fxFlex="100" [items]="neighborhoodsItems" itemKey="name" itemLabel="name" [multiple]="true"></select-box>
+                            <select-box label="Sede" formControlName="roadways" fxFlex.gt-md="50" fxFlex="100" [items]="roadways" itemLabel="name" [multiple]="true"></select-box>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <div fxFlex.gt-md="45" fxFlex="100" *ngIf="!onlyPlanned">
+                                <p>Stima inizio e fine lavori</p>
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-date label="Data inizio" formControlName="estimatedStartDate" fxFlex.gt-md="45" fxFlex="47" ></input-date>
+                                    <input-date label="Data fine" formControlName="estimatedEndDate" fxFlex.gt-md="45" fxFlex="47"></input-date>
+                                </div>
+                            </div>
+                            <div fxFlex.gt-md="50" fxFlex="100" *ngIf="!onlyPlanned">
+                                <p>Date reali</p>
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-date label="Data inizio" formControlName="effectiveStartDate" fxFlex.gt-md="45" fxFlex="47"></input-date>
+                                    <input-date label="Data fine" formControlName="effectiveEndDate" fxFlex.gt-md="45" fxFlex="47"></input-date>
+                                </div>
+                            </div>
+                            <div fxFlex.gt-md="30" fxFlex="100">
+                                <p>Dati referente Comune</p>
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-string label="Nome" formControlName="municipalityReferentName" fxFlex.gt-md="45" fxFlex="100"></input-string>
+                                    <input-string label="N° telefono" formControlName="municipalityReferentPhoneNumber" fxFlex.gt-md="50" fxFlex="100"></input-string>
+                                </div>
+                            </div>
+                            <div fxFlex.gt-md="30" fxFlex="100">
+                                <p>Dati referente Ditta</p>
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <input-string label="Nome" formControlName="companyReferentName" fxFlex.gt-md="45" fxFlex="100"></input-string>
+                                    <input-string label="N° telefono" formControlName="companyReferentPhoneNumber" fxFlex.gt-md="50" fxFlex="100"></input-string>
+                                </div>
+                            </div>                        
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12">
+                            <input-string label="Link" formControlName="link" rows="1" fxFlex="100"></input-string>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12" *ngIf="!canManageOffice">
+                            <input-string label="Provvedimento di modifica alla circolazione" formControlName="trafficChangesMeasure" rows="2" fxFlex="100"></input-string>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                            <input-string label="Note tecniche dell'intervento" formControlName="notes" rows="3" fxFlex="100"></input-string>
+                        </div>
+                        <!-- <div fxLayout="row wrap" fxLayoutAlign="space-between" *ngIf="!canManageOffice">
+                            <input-string label="Descrizione per cittadini" formControlName="descriptionForCitizens" rows="2" fxFlex="100" ></input-string>
+                        </div> -->
+                        
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Allegati" *ngIf="!canManageOffice">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <div fxLayout="row" fxLayoutAlign="space-between">
+                            <div class="file-uploader">
+                                <input hidden type="file" #fileInput (change)="addFile($event.target.files)" />
+                                <button mat-fab color="primary" class="add-file-button" (click)="fileInput.click()"
+                                    aria-label="Add file">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="space-between" class="mt-24">
+                            <mat-table class="table-table" #table [dataSource]="attachmentsDataSource"
+                                [@animateStagger]="{value:'50'}" fusePerfectScrollbar formArrayName="attachments">
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef>Nome file</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                        <p class="text-truncate">{{row.controls.name.value}}</p>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="isPublic">
+                                    <mat-header-cell *matHeaderCellDef style="width:20px;">Pubblico</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                        <input-check-box formControlName="isPublic"></input-check-box>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef style="width:20px;"></mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let index = index">
+                                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                                            aria-label="Example icon-button with a menu">
+                                            <mat-icon>more_vert</mat-icon>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="removeAttachment(index)">
+                                                <mat-icon>delete</mat-icon>
+                                                <span>Elimina</span>
+                                            </button>
+                                        </mat-menu>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="attachmentsDisplayedColumns; sticky:true">
+                                </mat-header-row>
+
+                                <mat-row *matRowDef="let row; let i = index; columns: attachmentsDisplayedColumns;"
+                                    class="table-row" matRipple></mat-row>
+                            </mat-table>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Mappa" *ngIf="!canManageOffice">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <div fxLayout="row wrap" fxLayoutAlign="start start">
+                            <app-map-editor [editEnabled]="true" [labeledPoints]="labeledPoints" [nearestWorks]="nearestRoadworks" [geoFeaturesContainer]="geoFeatureContainers" (nearestWorkSelected)="selectedWork($event)" (featuresUpdate)="geoFeatureContainerUpdate($event)" *ngIf="showMap"></app-map-editor>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Auditing" *ngIf="!isNew && !canManageOffice">
+                    <div class="tab-content p-24" fusePerfectScrollbar fxLayout="column">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between" class="mt-12">
+                            <input-string label="Creato da" formControlName="createdBy" fxFlex.gt-md="30" fxFlex="40"></input-string>
+                            <input-date label="Il" formControlName="createdAt" fxFlex.gt-md="15" fxFlex="40"></input-date>
+                            <input-string label="Modificato da" formControlName="updatedBy" fxFlex.gt-md="30" fxFlex="40"></input-string>
+                            <input-date label="Il" formControlName="lastUpdate" fxFlex.gt-md="15" fxFlex="40"></input-date>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
+</div>

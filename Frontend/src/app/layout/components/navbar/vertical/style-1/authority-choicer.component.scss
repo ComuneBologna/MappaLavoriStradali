@@ -1,0 +1,11 @@
+@import "src/@fuse/scss/fuse";
+
+.authority-choicer{
+    background-color: #f8f8f8;
+    .mat-form-field-wrapper{
+        padding: 0;
+    }
+    .mat-select{
+        height: 40px;
+    }
+}

@@ -1,0 +1,46 @@
+<div style="width: 100%; height: 100%; position: relative;">
+    <ng-container *ngIf="validAuthority">
+        <div [ngClass]="{'container-info': selectedDataModel, 'container-hidden': !selectedDataModel}">
+            <div class="container-info-text">
+                <div *ngIf="selectedDataModel">
+                    <p><b>Indirizzo</b>: {{selectedDataModel.address}}</p>
+                    <p><b>Azienda</b>: {{selectedDataModel.companyName}}</p>
+                    <p><b>Stato dell'intervento</b>: {{enumUtils.getStatusDescription(selectedDataModel.status)}}</p>
+                    <!-- <p *ngIf="selectedDataModel.estimatedStartDate"><b>Date presunte per l'inizio dei lavori</b>{{selectedDataModel.estimatedStartDate | dateFormat_IT}}</p>
+				<p *ngIf="selectedDataModel.estimatedEndDateFrom "><b>Date presunte per la fine dei lavori</b>{{selectedDataModel.estimatedEndDateFrom  | dateFormat_IT}}</p>
+				 -->
+                    <p *ngIf="selectedDataModel.effectiveStartDate"><b>Data di inizio effettiva</b>:
+                        {{selectedDataModel.effectiveStartDate | dateFormat_IT}}</p>
+                    <p *ngIf="selectedDataModel.effectiveEndDate"><b>Data di fine effettiva</b>:
+                        {{selectedDataModel.effectiveEndDate | dateFormat_IT}}</p>
+
+                    <p *ngIf="selectedDataModel.description"><b>Descrizione</b>: {{selectedDataModel.description}}</p>
+                    <p *ngIf="selectedDataModel.notes"><b>Note</b>: {{selectedDataModel.notes}}</p>
+                    <p *ngIf="selectedDataModel.trafficChangesMeasure"><b>Provvedimento di modifica alla
+                            circolazione</b>: {{selectedDataModel.trafficChangesMeasure}}</p>
+                    <a *ngIf="selectedDataModel.link" target="_new" [href]="selectedDataModel.referredLink">ULTERIORI
+                        INFORMAZIONI</a>
+                </div>
+
+
+            </div>
+            <div class="container-info-close-button">
+                <button matTooltip="chiudi" mat-icon-button (click)="closeInfo();">
+                    <mat-icon class="amber-600-fg">cancel</mat-icon>
+                </button>
+            </div>
+        </div>
+        <app-map-editor [startedWorks]="startedWorks" [editEnabled]="false" [geoFeaturesContainer]="features"
+            (selectedGeoContainerId)="selectedGeoId($event)"></app-map-editor>
+    </ng-container>
+    <ng-container *ngIf="!validAuthority">
+
+    </ng-container>
+    <!-- <app-map-editor
+		[editEnabled]="true"
+		[geoFeaturesContainer]="features"
+		(selectedGeoContainerId)="selectedGeoId($event)"
+		(featuresUpdate)="featuresUpdated($event)"
+		[labeledPoints]="labeledPoints"
+	></app-map-editor> -->
+</div>

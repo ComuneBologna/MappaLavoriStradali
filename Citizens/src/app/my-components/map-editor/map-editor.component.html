@@ -1,0 +1,109 @@
+<div style="width: 100%; height: 100vh;" class="global-container">
+	<div class="home-button">
+		<button matTooltip="Reimposta"  matTooltipClass="tooltip" mat-icon-button class="ol-control" (click)="clickHomeButton()">
+			<mat-icon class="amber-300-fg">loop</mat-icon>
+		</button>
+	</div>
+	<div class="change-map-button">
+		<button [ngClass]="{'box-osm': (isBingSelected), 'box-bing': (!isBingSelected)}" (click)="switchMap()"></button>
+	</div>
+	<div class="layer-buttons">
+		<button matTooltip="Filtra per stato dell'intervento"  matTooltipClass="tooltip" mat-icon-button class="ol-control" (click)="showHideStatusLayersPanel()">
+			<mat-icon class="amber-600-fg">layers</mat-icon>
+		</button>
+	</div>
+    <div class="info-button">
+		<button matTooltip="Info"  matTooltipClass="tooltip" mat-icon-button class="ol-control" (click)="openInfoDialog()">
+			<mat-icon class="amber-600-fg">info</mat-icon>
+		</button>
+	</div>
+	
+	<div *ngIf=isShowHideStatusLayersClicked class="layer-container">
+		<p class="label-layer-panel">Filtra per stato dell'intervento</p>
+		<div *ngFor="let container of statusLayers">
+			<div *ngIf="container.referedWorks.length > 0" style="position: relative">
+				<div class="icon-in-layers-panel">
+					<img src={{container.layerIcon}}>
+				</div>
+					<mat-checkbox
+						style="padding-left: 5px;"
+						labelPosition="after"
+						(change)="$event ? statusLayerVisibilityChanged(container, container.selected) : null"
+						selected
+						[(ngModel)]="container.selected"
+						[checked]="container.selected" class="layer-checkbox">
+
+						{{container.layerName}}
+					</mat-checkbox>
+					
+			</div>
+		</div>
+	</div>
+	
+
+
+	<div *ngIf="editEnabled" class="edit-buttons">
+		<div *ngIf="!isEditClicked">
+			<button
+				matTooltip="Modifica"
+				mat-icon-button
+				class="ol-control"
+				[disabled]="!editEnabled || (isEditClicked && !isCloseClicked)"
+				(click)="clickEdit()">
+				<mat-icon class="amber-600-fg">create</mat-icon>
+			</button>
+			<button matTooltip="Elimina elemento selezionato" mat-icon-button *ngIf="!(!deleteEnabled || isCenterPin)" (click)="deleteSelectedFeature()">
+				<mat-icon class="amber-600-fg">delete_forever</mat-icon>
+			</button>
+		</div>
+		<span *ngIf="isEditClicked">
+			<button matTooltip="Termina modifiche" mat-icon-button (click)="clickEdit()">
+				<mat-icon class="amber-600-fg">keyboard_arrow_left</mat-icon>
+			</button>
+			
+			<select style="margin-left: 10px" *ngIf="visibleLayer.length>0" [(ngModel)]="currentLayer">
+				<option *ngFor="let layer of visibleLayer" [ngValue]="layer">{{getLabelSelect(layer)}}</option>
+			</select>
+			<button matTooltip="Aggiungi una linea" [disabled]="!visibleLayer.length>0"  mat-icon-button (click)="drawOnMap('LineString')">
+				<mat-icon class="amber-600-fg">timeline</mat-icon>
+			</button>
+			<button matTooltip="Aggiungi un punto" [disabled]="!visibleLayer.length>0" mat-icon-button (click)="drawOnMap('Point')">
+				<mat-icon class="amber-600-fg">scatter_plot</mat-icon>
+			</button>
+			<button matTooltip="Aggiungi un cerchio" [disabled]="!visibleLayer.length>0" mat-icon-button (click)="drawOnMap('Circle')">
+				<mat-icon class="amber-600-fg">add_circle_outline</mat-icon> 
+			</button>
+			<button matTooltip="Aggiungi un poligono" [disabled]="!visibleLayer.length>0" mat-icon-button (click)="drawOnMap('Polygon')">
+				<mat-icon class="amber-600-fg">format_shapes</mat-icon>
+			</button>
+		</span>
+	</div>
+    <div class="container text">
+		<p class="text-title-legend">LEGENDA LAVORI</p>
+		
+		<div class="container-row">
+			<img src="assets/icons/maps/work_rosso_modificato.png">
+			<p>IN CORSO</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_azzurro_modificato.png">
+			<p>PREVISTI</p>
+		</div>
+		<!-- <div class="container-row">
+			<img src="assets/icons/maps/work_giallo_modificato.png">
+			<p>In fase di attivazione</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_rosso_modificato.png">
+			<p>In corso</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_grigio_modificato.png">
+			<p>Non definito</p>
+		</div>
+		<div class="container-row">
+			<img src="assets/icons/maps/work_viola_modificato.png">
+			<p>Pianificato</p>
+		</div> -->
+	</div>
+</div>
