@@ -20,6 +20,9 @@ La soluzione permette di gestire una mappatura geografica (è stata inserita una
 ### Vantaggi – Risultati
 L’attività permette una gestione efficiente dell’intero iter di pianificazione dei cantieri stradali (dalla richiesta all’approvazione all’inserimento dei cantieri su mappa), una corretta comunicazione ai cittadini dei lavori programmati e la possibilità di navigare su una mappa interattiva della città, aggiornata in tempo reale, utile a visionare le aree o i quartieri impattati.
 
+### Anteprima
+Nella cartella screenshot del repository sono disponibili alcune immagini che mostrano l'applicativo.
+
 ## LICENSE
 European Union Public License 1.2 (EUPL 1.2)
 https://opensource.org/licenses/EUPL-1.2
