@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+    <OutputType>Exe</OutputType>
+    <LangVersion>preview</LangVersion>
+    <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SmartTech.Net5.Infrastructure" Version="1.0.21158.1" />
+    <PackageReference Include="SmartTech.Net5.Infrastructure.Configuration.AzureApp" Version="1.0.21158.1" />
+    <PackageReference Include="SmartTech.Net5.Infrastructure.Functions" Version="1.0.21158.1" />
+    <PackageReference Include="SmartTech.Net5.Infrastructure.GoogleMaps" Version="1.0.21158.1" />
+    <PackageReference Include="SmartTech.Net5.Infrastructure.Logging" Version="1.0.21158.1" />
+    <PackageReference Include="SmartTech.Net5.Infrastructure.ServiceBus" Version="1.0.21158.1" />
+    <PackageReference Include="SmartTech.Net5.Infrastructure.Storage.AzureStorage" Version="1.0.21158.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.ServiceBus" Version="4.2.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asf.RoadWorks.BusinessLogic\Asf.RoadWorks.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Asf.RoadWorks.DataAccessLayer\Asf.RoadWorks.DataAccessLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+</Project>

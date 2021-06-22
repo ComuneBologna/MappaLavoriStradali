@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="318e1823-c9f1-4917-a62f-fb14e45df670" ChangeDateTime="09/18/2019 08:26:19">
+    <Property Name="ElementName" Value="[RoadWorks].[RoadWorkNeighborhoods].[RoadSectionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[RoadWorks].[RoadWorkNeighborhoods]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NeighborhoodId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4c976b57-cf0e-4f85-b6d6-0766b93d22d0" ChangeDateTime="09/18/2019 08:26:25">
+    <Property Name="ElementName" Value="[RoadWorks].[RoadWorkNeighborhoods].[RoadwayId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[RoadWorks].[RoadWorkNeighborhoods]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RoadWorkId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2da32a70-6a88-465a-b3d4-5072803856ff" ChangeDateTime="10/09/2019 09:44:23">
+    <Property Name="ElementName" Value="[RoadWorks].[RoadwaysInRoadSections].[RoadSectionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[RoadWorks].[RoadwaysInRoadSections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RoadWorkId" />
+  </Operation>
+</Operations>

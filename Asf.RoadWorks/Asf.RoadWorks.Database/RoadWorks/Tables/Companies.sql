@@ -1,0 +1,8 @@
+﻿CREATE TABLE [RoadWorks].[Companies]
+(
+	[Id] BIGINT IDENTITY(1,1) NOT NULL,
+	[AuthorityId] BIGINT NOT NULL,
+	[Name] NVARCHAR(128) NOT NULL,
+	[IsOperationalUnit] BIT NOT NULL DEFAULT 0,
+	CONSTRAINT [PK_Companies] PRIMARY KEY CLUSTERED ([Id] ASC)
+)
