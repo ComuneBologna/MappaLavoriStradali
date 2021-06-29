@@ -1,0 +1,232 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+applicationSuite: Azure
+categories:
+  - business-process-management
+  - digital-citizenship
+dependsOn:
+  proprietary:
+    - name: SmartTech.Net5.Infrastructure
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.API
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.Cache.Redis
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.Configuration.AzureApp
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.DataAccessLayer.EFCore
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.Functions
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.GoogleMaps
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.Logging
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.ServiceBus
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.Storage.AzureStorage
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Infrastructure.Validations
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Common
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: SmartTech.Net5.Common.Web.Security
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+    - name: '@asf/ng11-mat-library'
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+description:
+  it:
+    features:
+      - Censimento dei cantieri stradali programmati
+      - Accesso al sistema con ruoli funzionali diversi
+      - Importazione dei lavori tramite file excel
+      - Integrazione della toponomastica cittadina
+      - Mappa dei cantieri interattiva per l'operatore di backoffice
+      - |-
+        Possibilità di modifca della posizione del lavoro e di  disegno del
+
+        poligono dell'intervento
+      - Ricerca ed esportazione dei risultati in formato excel
+      - 'Gestione degli stati del lavoro (in corso, in attivazione, concluso)'
+      - Aggiornamento automatico degli stati del lavoro
+      - |-
+        Mappa pubblica del cittadino con indicazione dei lavori in corso ed in
+
+        programma
+      - |-
+        Indicazioni su possibili modifche alla circolazione e informazioni
+
+        aggiuntive (descrizione o link)
+    genericName: Web browser
+    localisedName: Cantieri stradali
+    longDescription: |2
+       **Contesto/necessità**
+
+       Il Dipartimento Lavori Pubblici, Mobilità e Patrimonio Settore Mobilità Sostenibile e Infrastrutture - U.I. Gestione Viabilità - U.O. Nucleo Operativo Interventi del Comune di Bologna ha fatto emergere la necessità di poter avere in unico punto, in forma digitale, accessibile, semplice e chiara un repository della pianificazione dei lavori stradali complessivi dell’intero territorio del Comune di Bologna per visualizzare in tempo reale le vie e i quartieri in cui sono effettuati i lavori.  
+
+      **Soluzione**
+
+
+
+      Il Settore Agenda Digitale e Tecnologie Informatiche del Comune di Bologna
+
+      ha risposto a tali necessità, realizzando un applicativo in grado di
+
+      gestire complessivamente il sistema dei lavori stradali. L’applicativo
+
+      individuato è in grado di rispondere alle esigenze dei diversi stakeholder
+
+      coinvolti nel processo: -        Dipartimento Lavori Pubblici, Mobilità e
+
+      Patrimonio Settore Mobilità Sostenibile e Infrastrutture del comune di
+
+      Bologna: attività di pianificazione dei lavori e invio compilazione
+
+      richieste alle ditte coinvolte -        Enti terzi: ditte che richiedono
+
+      approvazione per i lavori e compilano Excel di richiesta; -        Ufficio
+
+      Comunicazione del Comune di Bologna: approvata la richiesta, possono
+
+      procedere con la comunicazione del cantiere su canali istituzionali e
+
+      inserire su mappa l’attività; -        Cittadini: possibilità di accedere
+
+      alle informazioni, verificare lo stato AS IS e TO BE della situazione
+
+      cantieri e navigare la mappa geografica. La piattaforma è in grado quindi
+
+      di gestire diverse utenze: dagli stakeholder con attività
+
+      operative-gestionali a quelle in sola visualizzazione. La soluzione
+
+      permette di gestire una mappatura geografica (è stata inserita una
+
+      mappatura di quartieri, sezioni stradali e strade proprio per agevolare la
+
+      navigabilità) dei lavori in corso sul territorio comunale, verificare
+
+      l’iter di approvazione delle richieste di cantieri e gestire una
+
+      pianificazione degli interventi futuri. 
+
+
+
+      **Vantaggi – Risultati**
+
+
+
+      L’attività permette una gestione efficiente dell’intero iter di
+
+      pianificazione dei cantieri stradali (dalla richiesta all’approvazione
+
+      all’inserimento dei cantieri su mappa), una corretta comunicazione ai
+
+      cittadini dei lavori programmati e la possibilità di navigare su una mappa
+
+      interattiva della città, aggiornata in tempo reale, utile a visionare le
+
+      aree o i quartieri impattati. 
+       
+    screenshots:
+      - |-
+        https://raw.githubusercontent.com/ComuneBologna/MappaLavoriStradali/master/screenshot/mappalavori-cittadino.png
+      - |-
+        https://raw.githubusercontent.com/ComuneBologna/MappaLavoriStradali/master/screenshot/homepage.png
+    shortDescription: |-
+      Il software permette di gestire l'iter di pianificazione dei cantieri
+
+      stradali e di rispondere alle esigenze dei diversi stakeholder coinvolti 
+developmentStatus: stable
+inputTypes:
+  - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+intendedAudience:
+  countries:
+    - it
+  scope:
+    - transportation
+it:
+  conforme:
+    gdpr: false
+    lineeGuidaDesign: false
+    misureMinimeSicurezza: false
+    modelloInteroperabilita: false
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+legal:
+  license: EUPL-1.2
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: true
+logo: |-
+  https://raw.githubusercontent.com/ComuneBologna/MappaLavoriStradali/master/screenshot/logo.png
+maintenance:
+  contacts:
+    - affiliation: Technical contact
+      email: domenico.pedicini@asfweb.it
+      name: Domenico Pedicini
+    - affiliation: technical contact
+      email: dario.pedicini@asfweb.it
+      name: Dario Pedicini
+  contractors:
+    - name: A Software Factory
+      until: '2022-06-30'
+  type: contract
+name: Lavori Asse stradale
+outputTypes:
+  - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+platforms:
+  - web
+releaseDate: '2021-04-28'
+softwareType: standalone/web
+url: 'https://github.com/ComuneBologna/MappaLavoriStradali'
