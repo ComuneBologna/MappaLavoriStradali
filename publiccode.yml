@@ -90,6 +90,7 @@ description:
       - |-
         Possibilità di modifca della posizione del lavoro e di  disegno del
 
+
         poligono dell'intervento
       - Ricerca ed esportazione dei risultati in formato excel
       - 'Gestione degli stati del lavoro (in corso, in attivazione, concluso)'
@@ -97,9 +98,11 @@ description:
       - |-
         Mappa pubblica del cittadino con indicazione dei lavori in corso ed in
 
+
         programma
       - |-
         Indicazioni su possibili modifche alla circolazione e informazioni
+
 
         aggiuntive (descrizione o link)
     genericName: Web browser
@@ -113,47 +116,69 @@ description:
 
 
 
+
       Il Settore Agenda Digitale e Tecnologie Informatiche del Comune di Bologna
+
 
       ha risposto a tali necessità, realizzando un applicativo in grado di
 
+
       gestire complessivamente il sistema dei lavori stradali. L’applicativo
+
 
       individuato è in grado di rispondere alle esigenze dei diversi stakeholder
 
+
       coinvolti nel processo: -        Dipartimento Lavori Pubblici, Mobilità e
+
 
       Patrimonio Settore Mobilità Sostenibile e Infrastrutture del comune di
 
+
       Bologna: attività di pianificazione dei lavori e invio compilazione
+
 
       richieste alle ditte coinvolte -        Enti terzi: ditte che richiedono
 
+
       approvazione per i lavori e compilano Excel di richiesta; -        Ufficio
+
 
       Comunicazione del Comune di Bologna: approvata la richiesta, possono
 
+
       procedere con la comunicazione del cantiere su canali istituzionali e
+
 
       inserire su mappa l’attività; -        Cittadini: possibilità di accedere
 
+
       alle informazioni, verificare lo stato AS IS e TO BE della situazione
+
 
       cantieri e navigare la mappa geografica. La piattaforma è in grado quindi
 
+
       di gestire diverse utenze: dagli stakeholder con attività
+
 
       operative-gestionali a quelle in sola visualizzazione. La soluzione
 
+
       permette di gestire una mappatura geografica (è stata inserita una
+
 
       mappatura di quartieri, sezioni stradali e strade proprio per agevolare la
 
+
       navigabilità) dei lavori in corso sul territorio comunale, verificare
+
 
       l’iter di approvazione delle richieste di cantieri e gestire una
 
+
       pianificazione degli interventi futuri. 
+
 
 
 
@@ -161,15 +186,21 @@ description:
 
 
 
+
       L’attività permette una gestione efficiente dell’intero iter di
+
 
       pianificazione dei cantieri stradali (dalla richiesta all’approvazione
 
+
       all’inserimento dei cantieri su mappa), una corretta comunicazione ai
+
 
       cittadini dei lavori programmati e la possibilità di navigare su una mappa
 
+
       interattiva della città, aggiornata in tempo reale, utile a visionare le
+
 
       aree o i quartieri impattati. 
        
@@ -180,6 +211,7 @@ description:
         https://raw.githubusercontent.com/ComuneBologna/MappaLavoriStradali/master/screenshot/homepage.png
     shortDescription: |-
       Il software permette di gestire l'iter di pianificazione dei cantieri
+
 
       stradali e di rispondere alle esigenze dei diversi stakeholder coinvolti 
 developmentStatus: stable
@@ -202,6 +234,8 @@ it:
     cie: false
     pagopa: false
     spid: false
+  riuso:
+    codiceIPA: c_a944
 legal:
   license: EUPL-1.2
 localisation:
